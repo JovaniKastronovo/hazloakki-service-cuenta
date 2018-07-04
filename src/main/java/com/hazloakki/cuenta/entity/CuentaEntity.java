@@ -66,14 +66,14 @@ public class CuentaEntity {
 		// .fecha(getFecha()).build();
 
 		CuentaDto cuentaDto = new CuentaDto();
-		cuentaDto.setIdCuenta(cuentaDto.getIdCuenta());
-		cuentaDto.setNombre(cuentaDto.getNombre());
-		cuentaDto.setApellidos(cuentaDto.getApellidos());
-		cuentaDto.setEmail(cuentaDto.getEmail());
-		cuentaDto.setPassword(cuentaDto.getPassword());
-		cuentaDto.setTelefono(cuentaDto.getTelefono());
-		cuentaDto.setEstatus(cuentaDto.isEstatus());
-		cuentaDto.setFecha(cuentaDto.getFecha());
+		cuentaDto.setIdCuenta(getId());
+		cuentaDto.setNombre(getNombre());
+		cuentaDto.setApellidos(getApellidos());
+		cuentaDto.setEmail(getEmail());
+		cuentaDto.setPassword(getPassword());
+		cuentaDto.setTelefono(getTelefono());
+		cuentaDto.setEstatus(isEstatus());
+		cuentaDto.setFecha(getFecha());
 
 		return cuentaDto;
 

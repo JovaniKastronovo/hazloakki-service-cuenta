@@ -3,6 +3,7 @@ package com.hazloakki.cuenta.api;
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.NO_CONTENT;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,7 +26,7 @@ import com.hazloakki.cuenta.service.CuentaService;
 @RestController
 @RequestMapping("/api/v1/cuentas")
 public class CuentaController {
-	
+	@Autowired
 	private CuentaService cuentaService;
 	
 
