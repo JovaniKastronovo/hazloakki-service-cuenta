@@ -2,6 +2,7 @@ package com.hazloakki.cuenta.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.hazloakki.cuenta.api.CuentaException;
 import com.hazloakki.cuenta.entity.CuentaEntity;
@@ -18,6 +19,7 @@ public class CuentaServiceImpl implements CuentaService {
 	@Autowired
 	private CuentaRepository cuentaRepository;
 
+	@Transactional
 	@Override
 	public CuentaEntity guardarCuenta(CuentaDto cuentaDto) {
 		CuentaEntity cuentaEntity = CuentaEntity.from(cuentaDto);
@@ -27,16 +29,20 @@ public class CuentaServiceImpl implements CuentaService {
 	@Override
 	public CuentaEntity obtenerCuenta(String idCuenta) {
 		return cuentaRepository.findById(idCuenta)
-				.orElseThrow(() -> CuentaException.from("No se encontro la cuenta : '%s'", idCuenta));
+				.orElseThrow(() -> CuentaException.from("No se encontro la cuenta :"+idCuenta, idCuenta));
 	}
 
+	@Transactional
 	@Override
-	public CuentaEntity modificarCuenta(CuentaDto cuentaDto) {
+	public CuentaEntity modificarCuenta(String idCuenta, CuentaDto cuentaDto) {
 
-		CuentaEntity cuentaOptional = cuentaRepository.findById(String.valueOf(cuentaDto.getIdCuenta())).orElseThrow(
-				() -> CuentaException.from("No se encontro la cuenta : '%s'", String.valueOf(cuentaDto.getIdCuenta())));
+		CuentaEntity cuentaOptional =  cuentaRepository.findById(idCuenta)
+		.orElseThrow(() -> CuentaException.from("No se encontro la cuenta: "+idCuenta, idCuenta));
 
-		cuentaOptional.setId(cuentaDto.getIdCuenta());
+		
+		cuentaOptional = cuentaOptional.from(cuentaDto);
+		cuentaOptional.setId(idCuenta);
+		
 
 		return cuentaRepository.save(cuentaOptional);
 

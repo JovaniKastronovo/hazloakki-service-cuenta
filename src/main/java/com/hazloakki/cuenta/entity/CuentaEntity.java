@@ -29,6 +29,7 @@ public class CuentaEntity {
 	private String telefono;
 	private String fecha;
 	private boolean estatus;
+	
 
 	public static CuentaEntity from(CuentaDto cuentaDto) {
 

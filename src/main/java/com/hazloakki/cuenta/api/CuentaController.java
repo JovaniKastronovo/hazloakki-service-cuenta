@@ -1,7 +1,8 @@
 package com.hazloakki.cuenta.api;
 
 import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.HttpStatus.NO_CONTENT;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,7 +33,7 @@ public class CuentaController {
 
 	@PostMapping
 	@ResponseStatus(CREATED)
-	public CuentaDto crearCuenta(@RequestBody CuentaDto cuentaDto) {
+	public CuentaDto crearCuenta(@Valid @RequestBody CuentaDto cuentaDto) {
 		return cuentaService.guardarCuenta(cuentaDto).to();
 	}
 	
@@ -42,9 +43,8 @@ public class CuentaController {
 	}
 	
 	@PutMapping("/{id}")
-	@ResponseStatus(NO_CONTENT)
-	public CuentaDto updateCuenta(@RequestBody CuentaDto cuentaDto) {
-		return cuentaService.modificarCuenta(cuentaDto).to();			
+	public CuentaDto updateCuenta(@PathVariable("id") String idCuenta,  @Valid @RequestBody CuentaDto cuentaDto) {
+		return cuentaService.modificarCuenta(idCuenta,cuentaDto).to();			
 	}
 	
 }

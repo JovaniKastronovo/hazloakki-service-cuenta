@@ -16,5 +16,5 @@ import com.hazloakki.cuenta.entity.CuentaEntity;
 @Repository
 public interface CuentaRepository extends JpaRepository<CuentaEntity, String>{
 
-	Optional<CuentaEntity> findById(String idCuenta);
+	Optional<CuentaEntity> findById(String id);
 }

@@ -13,5 +13,5 @@ public interface CuentaService {
 
 	CuentaEntity obtenerCuenta(String idCuenta);
 
-	CuentaEntity modificarCuenta(CuentaDto cuentaDto);
+	CuentaEntity modificarCuenta(String idCuenta,CuentaDto cuentaDto);
 }
