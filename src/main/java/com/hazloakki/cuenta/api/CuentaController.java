@@ -3,6 +3,8 @@ package com.hazloakki.cuenta.api;
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hazloakki.cuenta.modelo.CuentaDto;
 import com.hazloakki.cuenta.service.CuentaService;
+import com.hazloakki.cuenta.service.remoto.NegocioDto;
 
 /**
  * @author Jovani Arzate 2018-07-01 HazloAkki para Empresas v.1
@@ -55,6 +58,11 @@ public class CuentaController {
 	@ResponseStatus(OK)
 	public CuentaDto loginCuenta(@PathVariable("email") String email, @PathVariable("password") String password) {
 		return cuentaService.validaCuenta(email, password).to();
+	}
+	
+	@GetMapping("/{id}/negocios")
+	public List<NegocioDto> obtenerNegociosByCuenta(@PathVariable("id") String idCuenta) {
+		return cuentaService.obtenerNegociosByCuenta(idCuenta);
 	}
 
 }

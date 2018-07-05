@@ -1,13 +1,20 @@
 package com.hazloakki.cuenta.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.hazloakki.cuenta.api.CuentaException;
 import com.hazloakki.cuenta.entity.CuentaEntity;
+import com.hazloakki.cuenta.entity.CuentaNegocioEntity;
 import com.hazloakki.cuenta.modelo.CuentaDto;
+import com.hazloakki.cuenta.repository.CuentaNegocioRepository;
 import com.hazloakki.cuenta.repository.CuentaRepository;
+import com.hazloakki.cuenta.service.remoto.NegocioApiClient;
+import com.hazloakki.cuenta.service.remoto.NegocioDto;
 
 /**
  * @author Jovani Arzate 2018-07-01 HazloAkki para Empresas v.1
@@ -18,6 +25,9 @@ public class CuentaServiceImpl implements CuentaService {
 
 	@Autowired
 	private CuentaRepository cuentaRepository;
+	@Autowired
+	private NegocioApiClient negocioApiClient;
+	private CuentaNegocioRepository cuentaNegocioRepository;
 
 	@Transactional
 	@Override
@@ -58,9 +68,23 @@ public class CuentaServiceImpl implements CuentaService {
 	@Override
 	public CuentaEntity validaCuenta(String email, String password) {
 
-		return cuentaRepository.findByEmailAndPasswordAndEstatus(email, password,Boolean.TRUE)
+		return cuentaRepository.findByEmailAndPasswordAndEstatus(email, password, Boolean.TRUE)
 				.orElseThrow(() -> CuentaException.from("No se encontro la cuenta, es necesario registrarse!", email));
 
+	}
+
+	@Override
+	public List<NegocioDto> obtenerNegociosByCuenta(String idCuenta) {
+
+		List<CuentaNegocioEntity> negocioEntities = cuentaNegocioRepository.findByIdCuenta(idCuenta);
+		List<NegocioDto> negocioList = new ArrayList<>();
+		for (CuentaNegocioEntity cuentaEntity : negocioEntities) {
+
+			NegocioDto negocioDto = negocioApiClient.obtenerNegocio(cuentaEntity.getIdNegocio());
+			negocioList.add(negocioDto);
+		}
+
+		return negocioList;
 	}
 
 }
