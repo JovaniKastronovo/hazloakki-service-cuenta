@@ -19,11 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hazloakki.cuenta.modelo.CuentaDto;
 import com.hazloakki.cuenta.service.CuentaService;
 
-
 /**
- * @author Jovani Arzate
- * 2018-07-01
- * HazloAkki para Empresas v.1
+ * @author Jovani Arzate 2018-07-01 HazloAkki para Empresas v.1
  *
  */
 @RestController
@@ -31,28 +28,33 @@ import com.hazloakki.cuenta.service.CuentaService;
 public class CuentaController {
 	@Autowired
 	private CuentaService cuentaService;
-	
 
 	@PostMapping
 	@ResponseStatus(CREATED)
 	public CuentaDto crearCuenta(@Valid @RequestBody CuentaDto cuentaDto) {
 		return cuentaService.guardarCuenta(cuentaDto).to();
 	}
-	
+
 	@GetMapping("/{id}")
 	public CuentaDto readCuenta(@PathVariable("id") String idCuenta) {
 		return cuentaService.obtenerCuenta(idCuenta).to();
 	}
-	
+
 	@PutMapping("/{id}")
-	public CuentaDto updateCuenta(@PathVariable("id") String idCuenta,  @Valid @RequestBody CuentaDto cuentaDto) {
-		return cuentaService.modificarCuenta(idCuenta,cuentaDto).to();			
+	public CuentaDto updateCuenta(@PathVariable("id") String idCuenta, @Valid @RequestBody CuentaDto cuentaDto) {
+		return cuentaService.modificarCuenta(idCuenta, cuentaDto).to();
 	}
-	
+
 	@DeleteMapping("/{id}")
 	@ResponseStatus(OK)
 	public void borraCuenta(@PathVariable("id") String idCuenta) {
-		cuentaService.borrarCuenta(idCuenta);			
+		cuentaService.borrarCuenta(idCuenta);
 	}
-	
+
+	@GetMapping("/{email}/{password}")
+	@ResponseStatus(OK)
+	public CuentaDto loginCuenta(@PathVariable("email") String email, @PathVariable("password") String password) {
+		return cuentaService.validaCuenta(email, password).to();
+	}
+
 }

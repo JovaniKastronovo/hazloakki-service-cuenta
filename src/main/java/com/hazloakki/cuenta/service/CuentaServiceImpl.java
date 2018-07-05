@@ -10,9 +10,7 @@ import com.hazloakki.cuenta.modelo.CuentaDto;
 import com.hazloakki.cuenta.repository.CuentaRepository;
 
 /**
- * @author Jovani Arzate 
- * 2018-07-01 
- * HazloAkki para Empresas v.1
+ * @author Jovani Arzate 2018-07-01 HazloAkki para Empresas v.1
  *
  */
 @Service
@@ -55,6 +53,14 @@ public class CuentaServiceImpl implements CuentaService {
 				.orElseThrow(() -> CuentaException.from("No se encontro la cuenta: " + idCuenta, idCuenta));
 
 		cuentaRepository.delete(cuentaOptional);
+	}
+
+	@Override
+	public CuentaEntity validaCuenta(String email, String password) {
+
+		return cuentaRepository.findByEmailAndPasswordAndEstatus(email, password,Boolean.TRUE)
+				.orElseThrow(() -> CuentaException.from("No se encontro la cuenta, es necesario registrarse!", email));
+
 	}
 
 }
