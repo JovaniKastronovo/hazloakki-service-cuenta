@@ -10,8 +10,7 @@ import com.hazloakki.cuenta.modelo.CuentaDto;
 public interface CuentaService {
 
 	CuentaEntity guardarCuenta(CuentaDto cuentaDto);
-
 	CuentaEntity obtenerCuenta(String idCuenta);
-
-	CuentaEntity modificarCuenta(String idCuenta,CuentaDto cuentaDto);
+	CuentaEntity modificarCuenta(String idCuenta, CuentaDto cuentaDto);
+	void borrarCuenta(String idCuenta);
 }

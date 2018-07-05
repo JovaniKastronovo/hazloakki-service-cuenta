@@ -10,7 +10,9 @@ import com.hazloakki.cuenta.modelo.CuentaDto;
 import com.hazloakki.cuenta.repository.CuentaRepository;
 
 /**
- * @author Jovani Arzate 2018-07-01 HazloAkki para Empresas v.1
+ * @author Jovani Arzate 
+ * 2018-07-01 
+ * HazloAkki para Empresas v.1
  *
  */
 @Service
@@ -29,23 +31,30 @@ public class CuentaServiceImpl implements CuentaService {
 	@Override
 	public CuentaEntity obtenerCuenta(String idCuenta) {
 		return cuentaRepository.findById(idCuenta)
-				.orElseThrow(() -> CuentaException.from("No se encontro la cuenta :"+idCuenta, idCuenta));
+				.orElseThrow(() -> CuentaException.from("No se encontro la cuenta :" + idCuenta, idCuenta));
 	}
 
 	@Transactional
 	@Override
 	public CuentaEntity modificarCuenta(String idCuenta, CuentaDto cuentaDto) {
 
-		CuentaEntity cuentaOptional =  cuentaRepository.findById(idCuenta)
-		.orElseThrow(() -> CuentaException.from("No se encontro la cuenta: "+idCuenta, idCuenta));
+		CuentaEntity cuentaOptional = cuentaRepository.findById(idCuenta)
+				.orElseThrow(() -> CuentaException.from("No se encontro la cuenta: " + idCuenta, idCuenta));
 
-		
-		cuentaOptional = cuentaOptional.from(cuentaDto);
+		cuentaOptional = CuentaEntity.from(cuentaDto);
 		cuentaOptional.setId(idCuenta);
-		
 
 		return cuentaRepository.save(cuentaOptional);
 
+	}
+
+	@Override
+	public void borrarCuenta(String idCuenta) {
+
+		CuentaEntity cuentaOptional = cuentaRepository.findById(idCuenta)
+				.orElseThrow(() -> CuentaException.from("No se encontro la cuenta: " + idCuenta, idCuenta));
+
+		cuentaRepository.delete(cuentaOptional);
 	}
 
 }

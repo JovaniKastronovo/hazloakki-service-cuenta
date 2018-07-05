@@ -1,10 +1,12 @@
 package com.hazloakki.cuenta.api;
 
 import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.OK;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -45,6 +47,12 @@ public class CuentaController {
 	@PutMapping("/{id}")
 	public CuentaDto updateCuenta(@PathVariable("id") String idCuenta,  @Valid @RequestBody CuentaDto cuentaDto) {
 		return cuentaService.modificarCuenta(idCuenta,cuentaDto).to();			
+	}
+	
+	@DeleteMapping("/{id}")
+	@ResponseStatus(OK)
+	public void borraCuenta(@PathVariable("id") String idCuenta) {
+		cuentaService.borrarCuenta(idCuenta);			
 	}
 	
 }
