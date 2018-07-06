@@ -1,45 +1,58 @@
 buildscript {
-	ext {
-		springBootVersion = '1.5.8.RELEASE'
-	}
-	repositories {
-		mavenCentral()
-	}
-	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-		classpath 'mysql:mysql-connector-java:5.1.16'
-	}
+  ext {
+    springBootVersion = '1.5.10.RELEASE'
+  }
+  repositories {
+    jcenter()
+    mavenCentral()
+  }
+  dependencies {
+    classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    classpath("org.asciidoctor:asciidoctor-gradle-plugin:1.5.3")
+    classpath 'com.bmuschko:gradle-docker-plugin:3.2.0'
+  }
 }
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
+apply plugin: 'jacoco'
 
-jar {
-	baseName = 'app'
-	version = ''
-}
-
+group = 'com.hazloakki.cuenta'
+version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 
 repositories {
+  mavenCentral()
+}
 
-	jcenter()
-	mavenCentral()
+ext {
+  springBootAdminVersion = '1.5.7'
+  springCloudVersion = 'Edgware.SR2'
 }
 
 
+jar {
+  baseName = 'service'
+  version = ''
+}
+
 dependencies {
-	compile('org.springframework.boot:spring-boot-starter-data-jpa')
-	compile('org.springframework.boot:spring-boot-starter-data-rest')
-	compile('org.springframework.boot:spring-boot-starter-web')
-	compileOnly('org.projectlombok:lombok')
-	testCompile('org.springframework.boot:spring-boot-starter-test')
-	compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.16'
-	  compile('org.springframework.boot:spring-boot-starter-actuator')
-	   compile 'org.springframework.cloud:spring-cloud-starter-openfeign'
-	  // compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '2.0.0.RELEASE'
-	     testCompile('org.springframework.boot:spring-boot-starter-test')
+  compile('org.springframework.boot:spring-boot-starter-actuator')
+  compile('org.springframework.boot:spring-boot-starter-data-jpa')
+  compile('org.springframework.boot:spring-boot-starter-web')
+  compile('de.codecentric:spring-boot-admin-starter-client') //spring boot ui
+  
+  compile 'org.springframework.cloud:spring-cloud-starter-openfeign'
+  testCompile('org.springframework.boot:spring-boot-starter-test')
   testCompile('org.springframework.restdocs:spring-restdocs-mockmvc')
+  compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.16'
+}
+
+dependencyManagement {
+  imports {
+    mavenBom "de.codecentric:spring-boot-admin-dependencies:${springBootAdminVersion}"
+    mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+  }
 }

@@ -27,8 +27,9 @@ public class CuentaServiceImpl implements CuentaService {
 	private CuentaRepository cuentaRepository;
 	@Autowired
 	private NegocioApiClient negocioApiClient;
+	@Autowired
 	private CuentaNegocioRepository cuentaNegocioRepository;
-
+	
 	@Transactional
 	@Override
 	public CuentaEntity guardarCuenta(CuentaDto cuentaDto) {

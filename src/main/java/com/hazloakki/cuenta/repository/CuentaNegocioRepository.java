@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.hazloakki.cuenta.entity.CuentaEntity;
 import com.hazloakki.cuenta.entity.CuentaNegocioEntity;
 
 /**
@@ -15,7 +14,7 @@ import com.hazloakki.cuenta.entity.CuentaNegocioEntity;
  *
  */
 @Repository
-public interface CuentaNegocioRepository extends JpaRepository<CuentaEntity, String>{
+public interface CuentaNegocioRepository extends JpaRepository<CuentaNegocioEntity, String>{
 
 	List<CuentaNegocioEntity> findByIdCuenta(String idCuenta);
 

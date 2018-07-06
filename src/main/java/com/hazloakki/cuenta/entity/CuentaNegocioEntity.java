@@ -1,5 +1,6 @@
 package com.hazloakki.cuenta.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -13,7 +14,9 @@ import javax.persistence.Table;
 public class CuentaNegocioEntity {
 
 	@Id
+	@Column(name="id_cuenta")
 	private String idCuenta;
+	@Column(name="id_negocio")
 	private String idNegocio;
 
 	public String getIdCuenta() {
