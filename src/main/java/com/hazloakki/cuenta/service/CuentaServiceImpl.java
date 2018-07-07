@@ -1,6 +1,5 @@
 package com.hazloakki.cuenta.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.hazloakki.cuenta.api.CuentaException;
 import com.hazloakki.cuenta.entity.CuentaEntity;
-import com.hazloakki.cuenta.entity.CuentaNegocioEntity;
 import com.hazloakki.cuenta.modelo.CuentaDto;
 import com.hazloakki.cuenta.repository.CuentaNegocioRepository;
 import com.hazloakki.cuenta.repository.CuentaRepository;
@@ -29,7 +27,7 @@ public class CuentaServiceImpl implements CuentaService {
 	private NegocioApiClient negocioApiClient;
 	@Autowired
 	private CuentaNegocioRepository cuentaNegocioRepository;
-	
+
 	@Transactional
 	@Override
 	public CuentaEntity guardarCuenta(CuentaDto cuentaDto) {
@@ -77,13 +75,7 @@ public class CuentaServiceImpl implements CuentaService {
 	@Override
 	public List<NegocioDto> obtenerNegociosByCuenta(String idCuenta) {
 
-		List<CuentaNegocioEntity> negocioEntities = cuentaNegocioRepository.findByIdCuenta(idCuenta);
-		List<NegocioDto> negocioList = new ArrayList<>();
-		for (CuentaNegocioEntity cuentaEntity : negocioEntities) {
-
-			NegocioDto negocioDto = negocioApiClient.obtenerNegocio(cuentaEntity.getIdNegocio());
-			negocioList.add(negocioDto);
-		}
+		List<NegocioDto> negocioList = negocioApiClient.obtenerNegocioByCuenta(idCuenta);
 
 		return negocioList;
 	}

@@ -64,5 +64,10 @@ public class CuentaController {
 	public List<NegocioDto> obtenerNegociosByCuenta(@PathVariable("id") String idCuenta) {
 		return cuentaService.obtenerNegociosByCuenta(idCuenta);
 	}
+	
+	@GetMapping("/{id}/negocios/{id}")
+	public List<NegocioDto> obtenerNegociosByCuentaAndNegocio(@PathVariable("id") String idCuenta) {
+		return null;//cuentaService.obtenerOneNegocioByCuenta(idCuenta);
+	}
 
 }
