@@ -1,0 +1,28 @@
+#https://stackoverflow.com/questions/35845144/how-can-i-create-a-mysql-db-with-docker-compose
+version: '2'
+services: 
+  mysql:
+    image: mysql:latest
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=test
+      - MYSQL_PASSWORD=root
+    volumes:
+      - ~/dockerdata/mysql5:/var/lib/mysql
+      - ~/dockerconf/mysql5/conf.d:/etc/mysql/conf.d
+   
+    ports:
+    - "3306:3306"
+  cuenta:
+    image: gradle-springboot
+    depends_on:
+      - mysql
+    ports:
+      - 8085:8085
+    environment:
+      - DATABASE_HOST=mysql
+      - DATABASE_USER=root
+      - DATABASE_PASSWORD=root
+      - DATABASE_NAME=test  
+      - DATABASE_PORT=3306
