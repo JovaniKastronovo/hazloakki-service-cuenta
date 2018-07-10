@@ -2,7 +2,7 @@
 
 gradle buildImage &&
 
-#cp build/libs/orderservice.jar src/main/docker/app/orderservice.jar &&
+#cp build/libs/cuenta-microservice.jar src/main/docker/app/cuenta-microservice.jar &&
 
 cd src/main/docker &&
 
