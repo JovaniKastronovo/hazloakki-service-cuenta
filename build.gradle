@@ -70,7 +70,7 @@ task createDockerfile(type: com.bmuschko.gradle.docker.tasks.image.Dockerfile) {
   copyFile 'cuenta-microservice.jar', '/opt/cuenta-microservice.jar'
   instruction {"RUN sh -c 'chmod +x *.sh'"}  
   exposePort 8085
-  entryPoint "/wait-for-it.sh","mysql:3307",  "--", "/start.sh"
+  entryPoint "/wait-for-it.sh","mysql-dev:3307",  "--", "/start.sh"
   //entryPoint 'java', "-Djava.awt.headless=true", "-Xms256m", "-Xmx256m", '-jar', '/opt/orderservice.jar'
 }
 
@@ -89,18 +89,18 @@ task pushImage(type: com.bmuschko.gradle.docker.tasks.image.DockerPushImage) {
 
 /*************************************/
 task prepareFiles(type: Copy) {
-	from 'src/main/docker/app/start.sh','src/main/docker/app/wait-for-it.sh'
+	from 'src/main/docker/app-docker/start.sh','src/main/docker/app-docker/wait-for-it.sh'
 	into 'build/libs/'
 }
 
 task moveDockerFile(type: Copy) {
 	from '/build/libs/Dockerfile', '/build/libs/cuenta-microservice.jar'
-	into '/src/main/docker/app'
+	into '/src/main/docker/app-docker'
 }
 
 task moveJarFile(type: Copy) {
 	from('/build/libs/')
-	into('/src/main/docker/app/')
+	into('/src/main/docker/app-docker/')
 }
 
 build.dependsOn createDockerfile

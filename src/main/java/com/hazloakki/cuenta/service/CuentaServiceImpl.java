@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.hazloakki.cuenta.api.CuentaException;
 import com.hazloakki.cuenta.entity.CuentaEntity;
 import com.hazloakki.cuenta.modelo.CuentaDto;
-import com.hazloakki.cuenta.repository.CuentaNegocioRepository;
 import com.hazloakki.cuenta.repository.CuentaRepository;
 import com.hazloakki.cuenta.service.remoto.NegocioApiClient;
 import com.hazloakki.cuenta.service.remoto.NegocioDto;
@@ -25,8 +24,7 @@ public class CuentaServiceImpl implements CuentaService {
 	private CuentaRepository cuentaRepository;
 	@Autowired
 	private NegocioApiClient negocioApiClient;
-	@Autowired
-	private CuentaNegocioRepository cuentaNegocioRepository;
+
 
 	@Transactional
 	@Override
