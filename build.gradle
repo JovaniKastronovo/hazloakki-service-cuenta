@@ -80,13 +80,6 @@ task buildImage(type: com.bmuschko.gradle.docker.tasks.image.DockerBuildImage) {
   tag = 'jovaniac/cuenta-microservice:' + project.version.toLowerCase()
 }
 
-task pushImage(type: com.bmuschko.gradle.docker.tasks.image.DockerPushImage) {
-  dependsOn buildImage
-  imageName = buildImage.tag
-}
-
-
-
 /*************************************/
 task prepareFiles(type: Copy) {
 	from 'src/main/docker/app-docker/start.sh','src/main/docker/app-docker/wait-for-it.sh'
@@ -103,11 +96,22 @@ task moveJarFile(type: Copy) {
 	into('/src/main/docker/app-docker/')
 }
 
+task pushImage(type: com.bmuschko.gradle.docker.tasks.image.DockerPushImage) {
+  dependsOn buildImage
+  def dockerRegistryCredentials = new com.bmuschko.gradle.docker.DockerRegistryCredentials()
+  dockerRegistryCredentials.password = System.properties['laney6699']
+  dockerRegistryCredentials.username = System.properties['jovaniac']
+  imageName = buildImage.tag
+  registryCredentials = dockerRegistryCredentials
+}
+
+
+
 build.dependsOn createDockerfile
 
 /*************************************/
 buildImage.dependsOn prepareFiles
 createDockerfile.dependsOn bootRepackage
-//prepareFiles.dependsOn moveDockerFile
+prepareFiles.dependsOn moveDockerFile
 buildImage.dependsOn moveDockerFile
 
