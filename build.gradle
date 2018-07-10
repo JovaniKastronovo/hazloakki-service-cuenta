@@ -99,8 +99,8 @@ task moveJarFile(type: Copy) {
 task pushImage(type: com.bmuschko.gradle.docker.tasks.image.DockerPushImage) {
   dependsOn buildImage
   def dockerRegistryCredentials = new com.bmuschko.gradle.docker.DockerRegistryCredentials()
-  dockerRegistryCredentials.password = System.properties['laney6699']
-  dockerRegistryCredentials.username = System.properties['jovaniac']
+  dockerRegistryCredentials.password = System.properties['']
+  dockerRegistryCredentials.username = System.properties['']
   imageName = buildImage.tag
   registryCredentials = dockerRegistryCredentials
 }
