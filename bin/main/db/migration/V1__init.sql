@@ -1,8 +1,3 @@
-CREATE DATABASE `hazloakki-cuenta` /*!40100 DEFAULT CHARACTER SET latin1 */;
-
-use hazloakki;
-
-
 CREATE TABLE `cuenta` (
   `id` varchar(255) NOT NULL,
   `apellidos` varchar(255) DEFAULT NULL,
