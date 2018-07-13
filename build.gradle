@@ -71,7 +71,7 @@ task createDockerfile(type: com.bmuschko.gradle.docker.tasks.image.Dockerfile) {
   copyFile 'cuenta-microservice.jar', '/opt/cuenta-microservice.jar'
   instruction {"RUN sh -c 'chmod +x *.sh'"}  
   exposePort 8085
-  entryPoint "/wait-for-it.sh","postgres:5432",  "--", "/start.sh"
+  entryPoint "/wait-for-it.sh","postgres:5433",  "--", "/start.sh"
   //entryPoint 'java', "-Djava.awt.headless=true", "-Xms256m", "-Xmx256m", '-jar', '/opt/orderservice.jar'
 }
 
