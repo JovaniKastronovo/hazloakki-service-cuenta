@@ -51,6 +51,9 @@ dependencies {
   testCompile('org.springframework.restdocs:spring-restdocs-mockmvc')
   runtime('org.postgresql:postgresql')
   compile('org.flywaydb:flyway-core')
+  compile('de.codecentric:spring-boot-admin-starter-client') //spring boot ui
+  compile('org.springframework.cloud:spring-cloud-starter-eureka')
+  compile('org.springframework.cloud:spring-cloud-starter-hystrix')
 }
 
 dependencyManagement {
@@ -71,8 +74,9 @@ task createDockerfile(type: com.bmuschko.gradle.docker.tasks.image.Dockerfile) {
   copyFile 'cuenta-microservice.jar', '/opt/cuenta-microservice.jar'
   instruction {"RUN sh -c 'chmod +x *.sh'"}  
   exposePort 8085
-  entryPoint "/wait-for-it.sh","postgres:5433",  "--", "/start.sh"
-  //entryPoint 'java', "-Djava.awt.headless=true", "-Xms256m", "-Xmx256m", '-jar', '/opt/orderservice.jar'
+ // entryPoint "/wait-for-it.sh","postgres:5433",  "--", "/start.sh"
+  entryPoint "/start.sh"
+  
 }
 
 task buildImage(type: com.bmuschko.gradle.docker.tasks.image.DockerBuildImage) {
